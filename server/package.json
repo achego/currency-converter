@@ -1,0 +1,19 @@
+{
+  "name": "currency-converter",
+  "version": "1",
+  "description": "This a server that will perform a curency conver opertion and return the value and word equivalent of the the converted value then provide an api",
+  "main": "server.js",
+  "author": "Belema",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "dependencies": {
+    "axios": "^1.2.2",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  }
+}
