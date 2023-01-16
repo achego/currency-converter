@@ -3,7 +3,7 @@ import flag_ng from "./png100px/ng.png";
 import flag_in from "./png100px/in.png";
 import flag_sg from "./png100px/sg.png";
 import flag_bs from "./png100px/bs.png";
-import flag_sn from "./png100px/sn.png";
+// import flag_sn from "./png100px/sn.png";
 import flag_cn from "./png100px/cn.png";
 const allCountries = {
     BSD:{
