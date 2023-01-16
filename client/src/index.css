@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hide-scroll {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+button, div {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.anim_fadeIn {
+  animation: fade-in 100ms linear both;
+}
+
+@keyframes fade-in {
+  from {
+   transform: scale(0.4);
+    opacity: 0;
+    right: -20%;
+  }
+  to{
+  transform: scale(1);
+  opacity: 1;
+  right: -20%;
+  }
+}
