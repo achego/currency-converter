@@ -244,6 +244,6 @@ function convertThreeDigitsToWords(n) {
   return word.trim();
 }
 
-console.log(convertNumberToWords(20021));
+console.log(convertNumberToWords(55636252));
 
-// module.exports = convertNumberToWords
+module.exports = convertNumberToWords

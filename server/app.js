@@ -3,7 +3,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const axios = require("axios");
 const cheerio = require("cheerio");
-// const convertNumberToWords = require("./utils/functions");
+const convertNumberToWords = require("./utils/functions");
 const app = express();
 
 app.use(morgan("dev"));
@@ -30,7 +30,7 @@ app.get("/convert", async (req, res) => {
     // const value = Number(data.toString().replace(/[^0-9\.]+/g,""));
     const valueList = data.match(/(-\d+|\d+)(,\d+)*(\.\d+)*/g);
     const value = Number(valueList[0].replace(',', ''));
-    // const valueInWord = convertNumberToWords(value)
+    const valueInWord = convertNumberToWords(value)
     console.log(valueInWord);
     if (getGraph==='false') {
       res.status(200).json({ value, valueInWord });
