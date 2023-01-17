@@ -6,7 +6,7 @@ const useHomeController = () => {
     const [from, setfrom] = useState({ country: allCountries.USA, value: "1" });
 	const [to, setto] = useState({ country: allCountries.NGN, value: "" });
   const [isLoading, setisLoading] = useState(false)
-	const [data, setData] = useState("");
+	const [data, setData] = useState({value:'', valueInWord:''});
 
   useEffect(() => {
     console.log('Use Efferct');

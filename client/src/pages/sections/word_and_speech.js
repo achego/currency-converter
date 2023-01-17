@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { IconMic } from "../../utils/app_icons";
 
-const WordAndSpeech = ({ word = "Three Million, Four hundred" }) => {
+const WordAndSpeech = ({ word }) => {
   const [letters, setletters] = useState("");
   const [isTyping, setisTyping] = useState(true);
   const [isSpeaking, setisSpeaking] = useState(false);
@@ -11,6 +11,8 @@ const WordAndSpeech = ({ word = "Three Million, Four hundred" }) => {
 
   const speechController = new SpeechSynthesisUtterance();
   const synth = window.speechSynthesis;
+
+  console.log(word);
 
   useEffect(() => {
     const writeWords = () => {
