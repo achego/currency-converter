@@ -11,13 +11,14 @@ const useHomeController = () => {
   useEffect(() => {
     console.log('Use Efferct');
     convertCurrency();
-  }, []);
+  }, [from, to]);
 
   const convertCurrency = async () => {
+    
    try {
     setisLoading(true)
-    console.log(to.country.shortCode, from.country.shortCode, from.value);
-    const url = `https://currency-converter-achego.vercel.app/convert?to=${to.country.shortCode}&from=${from.country.shortCode}&amount=${from.value}`
+    console.log(from.country.shortCode, to.country.shortCode, from.value);
+    const url = `http://localhost:4000/convert?to=${to.country.shortCode}&from=${from.country.shortCode}&amount=${from.value}`
     const resp  = await axios.get(url)
     console.log(resp.data);
     setData(resp.data)
@@ -26,7 +27,13 @@ const useHomeController = () => {
     console.warn(error)
    }
   };
-  return {to, from, setto, setfrom, data, convertCurrency, isLoading  };
+
+  const swapConversion = () => {
+    setfrom({...to, value: from.value})
+    setto({...from, value:''})
+    convertCurrency()
+  }
+  return {to, from, setto, setfrom, data, convertCurrency, isLoading, swapConversion  };
 };
 
 export default useHomeController;

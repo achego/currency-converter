@@ -18,7 +18,10 @@
 
 button, div {
   -webkit-tap-highlight-color: transparent;
+  /* color: rgba(79, 200, 248, 0.549); */
 }
+
+
 
 .anim_fadeIn {
   animation: fade-in 100ms linear both;
@@ -34,5 +37,20 @@ button, div {
   transform: scale(1);
   opacity: 1;
   right: -20%;
+  }
+}
+.anim_fade {
+  animation: fade 100ms ease-in;
+}
+
+@keyframes fade {
+  from {
+   transform: scale(0.4);
+    opacity: 0;
+ 
+  }
+  to{
+  transform: scale(1);
+  opacity: 1;
   }
 }
