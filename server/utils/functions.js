@@ -123,6 +123,9 @@
 
 // // console.log(splitNumber3(12));
 
+
+
+
 // Define an array of ones, tens, and powers of ten
 const ones = [
   "",
@@ -159,74 +162,173 @@ const tens = [
   "eighty",
   "ninety",
 ];
-const powersOfTen = ["", "thousand", "million", "billion", "trillion"];
+const powersOfTen = [
+  "",
+  "thousand",
+  "million",
+  "billion",
+  "trillion",
+  "quadrillion",
+  "quintrillion",
+  "sextillion",
+  "septillion",
+  "octillion",
+  "nonillion",
+  "decillion",
+  "Undecillion",
+  "Duodecillion",
+  "Tredecillion",
+  "Quattuordecillion",
+  "Quindecillion",
+  "Hexdecillion",
+  "Septendecillion",
+  "Octodecillion",
+  "Novemdecillion",
+  "Vigintillion",
+  "Unvigintillion",
+  "Duovigintillion",
+  "Trevigintillion",
+  "Quattourvigintillion",
+  "Quinvigintillion",
+  "Hexvigintillion",
+  "Septenvigintillion",
+  "Octovigintillion",
+  "Novemvigintillion",
+  "Trigintillion",
+  "Untrigintillion",
+  "Duotrigintillion",
+  "Googol",
+  "Googolplex",
+];
 
 // Function to convert a number to words
-function convertNumberToWords(n) {
+function convertNumberToWords(numb = 0) {
+  console.log("NUMB", numb);
+  //   Extracting Decimal
+  let n = numb;
+  let deci = "";
+  if (numb.toString().includes(".")) {
+    n = +numb.toString().split(".")[0];
+    deci = numb.toString().split(".")[1];
+  }
+
   // Check if the input is valid
   if (isNaN(n) || n < 0) {
     return "Invalid input";
   }
-  if (n === 0) {
+  if (n.toString().length >= 15) {
+    return "Number too large";
+  }
+  if (n === 0 && numb.toString().length <= 1) {
     return "zero";
   }
+  
 
   // Initialize variables to store the word form of the number
   let word = "";
 
+  if (n === 0 && numb.toString().length > 1) {
+    word = 'zero ,'
+  }
+
   // Extract the powers of thousand and their remainder
   let powerOfThousand = 0;
+  console.log("N is", n);
+
   while (n > 0) {
     // Extract the three digits of the number
+
     let threeDigits = n % 1000;
     n = Math.floor(n / 1000);
 
     // Convert the three digits to words
-    let threeDigitsWord = convertThreeDigitsToWords(threeDigits);
+    let { threeDigitsWord, isHundredZero } =
+      convertThreeDigitsToWords(threeDigits);
 
     // Add the three digits to the final word along with the power of thousand
-    console.log(threeDigitsWord + " ---" + powersOfTen[powerOfThousand] + "*** " + word);
-    if(n> 0){
-        threeDigitsWord = ' and ' + threeDigitsWord
-    }
-    if (threeDigitsWord !== "") {
-      word = threeDigitsWord + " " + powersOfTen[powerOfThousand]+',' + " " + word;
-    }
+    // console.log("is100-0", isHundredZero);
+    // console.log("N is", n);
+    // console.log(
+    //   threeDigitsWord + " ---" + powersOfTen[powerOfThousand] + "*** " + word
+    // );
+    const isThreeDigitEmpty = threeDigitsWord === "";
+    // console.log("Pow10", powersOfTen[powerOfThousand]);
+    // word = `${isThreeDigitEmpty ? "" : threeDigitsWord + " "}${
+    //   isThreeDigitEmpty ? "and " : powersOfTen[powerOfThousand] + ", "
+    // }${word}`;
+    word = `${isThreeDigitEmpty ? "" : threeDigitsWord + " "}${
+      isThreeDigitEmpty
+        ? ""
+        : `${powersOfTen[powerOfThousand]}${isHundredZero ? " and " : ", "}`
+    }${word}`;
+    console.log(word);
+    // if (threeDigitsWord !== "") {
+    //   word = threeDigitsWord + " " + powersOfTen[powerOfThousand]+',' + " " + word;
+    //   console.log(word);
+    // }
+    // else {
+    //     word = "and " + word;
+    //   console.log(word);
+    // }
     // console.log(word);
     // Increment the power of thousand
     powerOfThousand++;
   }
 
+  const intWord = word.trim().replace(/.$/, "");
+  const deciWord = getDecimalWord(deci).trim();
+  word = intWord + deciWord;
+
+  //   getDecimalWord(deci)
+  //   console.log(getDecimalWord(deci));
+  console.log("The word ", word.trim());
   return word.trim();
+}
+
+function getDecimalWord(deci) {
+  if (deci.length < 1) {
+    return "";
+  }
+  console.log("Dect", deci);
+  let deciWord = "point ";
+  for (const key of deci) {
+    const val = key == 0 ? "zero" : ones[key];
+    deciWord += val + " ";
+  }
+  return deciWord;
 }
 
 // Function to convert a number of three digits to words
 function convertThreeDigitsToWords(n) {
+ 
   // Initialize variables to store the word form of the number
+  console.log(n);
   let word = "";
+  if (n === 0) {
+    console.log('here');
+    word =  "zero";
+  }
 
   // Extract the ones digit
   let one = n % 10;
   n = Math.floor(n / 10);
-  console.log('One', one);
+  console.log("One", one);
 
   // Extract the tens digit
   let ten = n % 10;
   n = Math.floor(n / 10);
-  console.log('Ten', ten);
-
+  console.log("Ten", ten);
 
   // Extract the hundreds digit
   let hundred = n % 10;
-  console.log('Hundred', hundred);
-
+  //   console.log("Hundred", hundred);
 
   // Convert the hundreds digit to words
   if (hundred > 0) {
-    if(one >0){
-        word = ones[hundred] + " hundred and ";
-    }else {
-        word = ones[hundred] + " hundred ";
+    if (one > 0 || ten > 0) {
+      word = ones[hundred] + " hundred and ";
+    } else {
+      word = ones[hundred] + " hundred ";
     }
   }
 
@@ -241,9 +343,11 @@ function convertThreeDigitsToWords(n) {
     word += ones[one];
   }
 
-  return word.trim();
+  return {
+    threeDigitsWord: word.trim(),
+    isHundredZero: (hundred <= 0 || ten <= 0) && one <= 0,
+  };
 }
 
-console.log(convertNumberToWords(55636252));
 
-module.exports = convertNumberToWords
+module.exports = convertNumberToWords;

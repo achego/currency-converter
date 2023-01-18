@@ -23,15 +23,14 @@ app.get("/convert", async (req, res) => {
 
   try {
     const response = await axios.get(
-      `https://www.google.com/search?q=google+convert+${amount==''?'0':amount}+${from}+to+${to}`
+      `https://www.google.com/search?q=google+convert+${amount==''?'0':'1'}+${from}+to+${to}`
     );
     const $ = cheerio.load(response.data);
     const data = $(".BNeawe.iBp4i.AP7Wnd").text();
     // const value = Number(data.toString().replace(/[^0-9\.]+/g,""));
     const valueList = data.match(/(-\d+|\d+)(,\d+)*(\.\d+)*/g);
-    const value = Number(valueList[0].replace(',', ''));
+    const value = Number(valueList[0].replace(',', '')) * amount;
     const valueInWord = convertNumberToWords(value)
-    console.log(valueInWord);
     if (getGraph==='false') {
       res.status(200).json({ value, valueInWord });
       return;

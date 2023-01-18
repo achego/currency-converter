@@ -1,7 +1,5 @@
 import React from "react";
 import AppBar from "../components/app_bar";
-import ConverterItem from "../components/currency_converter/converter_item";
-import { IconGo, IconSwap } from "../utils/app_icons";
 import useHomeController from "./home_controller";
 import Chart from "./sections/chart";
 import Converter from "./sections/converter";
@@ -15,7 +13,7 @@ const Home = () => {
       <AppBar />
       <CurrentDate />
       <Converter controller={controller} />
-      <WordAndSpeech word={controller.data.valueInWord} />
+      <WordAndSpeech word={controller.data.valueInWord!==''?`${controller.data.valueInWord} ${controller.to.country.currencyName}`:''} />
       <Chart data={{}} pairs={{from:controller.from.country.shortCode, to: controller.to.country.shortCode}}/>
     </div>
   );
