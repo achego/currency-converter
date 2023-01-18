@@ -22,6 +22,7 @@ const useHomeController = () => {
     setData(resp.data)
     setisLoading(false)
    } catch (error) {
+    setisLoading(false)
     console.warn(error)
    }
   };

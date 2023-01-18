@@ -4,7 +4,6 @@ const CurrentDate = () => {
   const [dateState, setdateState] = useState(new Date());
   useEffect(() => {
     setInterval(() => {
-      console.log("gere");
       setdateState(new Date());
     }, 30000);
   }, []);
