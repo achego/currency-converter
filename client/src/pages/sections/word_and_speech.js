@@ -12,9 +12,14 @@ const WordAndSpeech = ({ word }) => {
 
   const speechController = new SpeechSynthesisUtterance();
   const synth = window.speechSynthesis;
-  const voices = synth
+  const voiceNames = synth
     .getVoices()
-    .map((voice) => <option key={voice.name}>{voice.name}</option>);
+    .map((voice) => voice.name)
+    .sort();
+
+  const voices = voiceNames.map((voice) => (
+    <option key={voice}>{voice}</option>
+  ));
 
   useEffect(() => {
     if (index < word.length) {
@@ -50,8 +55,8 @@ const WordAndSpeech = ({ word }) => {
       synth.getVoices().filter((voice) => voice.name === lang)[0] ||
       synth.getVoices()[0];
 
-      console.log(voice);
-      console.log(synth.getVoices()[0]);
+    console.log(voice);
+    console.log(synth.getVoices()[0]);
     setisSpeaking(true);
     speechController.text = word;
     speechController.voice = voice;
@@ -90,7 +95,7 @@ const WordAndSpeech = ({ word }) => {
           </div>
         )}
       </div>
-      {/* <div>{voices}</div> */}
+      {/* <div>{voiceNames}</div> */}
     </section>
   );
 };
