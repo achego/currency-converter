@@ -16,8 +16,8 @@ const useHomeController = () => {
    try {
     setisLoading(true)
 
-    const url = `http://localhost:4000/convert?to=${to.country.shortCode}&from=${from.country.shortCode}&amount=${from.value}`
-    // const url = `https://currency-converter-achego.vercel.app/convert?to=${to.country.shortCode}&from=${from.country.shortCode}&amount=${from.value}`
+    // const url = `http://localhost:4000/convert?to=${to.country.shortCode}&from=${from.country.shortCode}&amount=${from.value}`
+    const url = `https://currency-converter-achego.vercel.app/convert?to=${to.country.shortCode}&from=${from.country.shortCode}&amount=${from.value}`
     const resp  = await axios.get(url)
     setData(resp.data)
     setisLoading(false)
