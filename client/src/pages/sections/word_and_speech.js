@@ -1,7 +1,7 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { IconMic } from "../../utils/app_icons";
 
-const WordAndSpeech = ({ word, initState }) => {
+const WordAndSpeech = ({ word }) => {
   const [letters, setletters] = useState("");
 
   const [isTyping, setisTyping] = useState(true);
@@ -14,9 +14,8 @@ const WordAndSpeech = ({ word, initState }) => {
   const synth = window.speechSynthesis;
   const voices = synth
     .getVoices()
-    .map((voice) => <p key={voice.name}>{`${voice.name} - ${voice.lang}`}</p>);
+    .map((voice) => <option key={voice.name}>{voice.name}</option>);
 
-  
   useEffect(() => {
     if (index < word.length) {
       if (index < 0) {
@@ -40,16 +39,19 @@ const WordAndSpeech = ({ word, initState }) => {
 
   const writeWords = () => {
     setTimeout(() => {
-
       setletters(letters + word[index]);
       setIndex(index + 1);
     }, 40);
   };
 
   const speak = () => {
+    console.log(lang);
     const voice =
-      synth.getVoices().filter((voice) => voice.lang === getVoices(lang))[0] ||
+      synth.getVoices().filter((voice) => voice.name === lang)[0] ||
       synth.getVoices()[0];
+
+      console.log(voice);
+      console.log(synth.getVoices()[0]);
     setisSpeaking(true);
     speechController.text = word;
     speechController.voice = voice;
@@ -83,35 +85,14 @@ const WordAndSpeech = ({ word, initState }) => {
               value={lang}
               onChange={(e) => setlang(e.target.value)}
             >
-              <option>English</option>
-              <option>Spanish</option>
-              <option>Itallian</option>
-              <option>French</option>
+              {voices}
             </select>
           </div>
         )}
       </div>
-      <div>{voices}</div>
+      {/* <div>{voices}</div> */}
     </section>
   );
 };
 
 export default WordAndSpeech;
-
-const getVoices = (voice) => {
-  switch (voice) {
-    case "English":
-      return "en-GB";
-    case "Spanish":
-      return "es-ES";
-    case "Itallian":
-      return "it-IT";
-    case "French":
-      return "fr-FR";
-    case "Russian":
-      return "ru-RU";
-
-    default:
-      return "en-GB";
-  }
-};
